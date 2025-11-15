@@ -1,12 +1,34 @@
 {
   "name": "best_price",
   "version": "1.0.0",
-  "description": "",
-  "main": "bestPrice.js",
+  "description": "Optimal purchase plan solver - find cheapest combination of shops to buy items",
+  "main": "dist/bestPriceDP.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "clean": "rm -rf dist/",
+    "bf:5": "npx ts-node bestPrice.ts 5",
+    "bf:10": "npx ts-node bestPrice.ts 10",
+    "bf:all": "echo 'Running brute-force tests...' && npx ts-node bestPrice.ts 5 && npx ts-node bestPrice.ts 8 && npx ts-node bestPrice.ts 10",
+    "dp:5": "npx ts-node bestPriceDP.ts 5",
+    "dp:15": "npx ts-node bestPriceDP.ts 15",
+    "dp:20": "npx ts-node bestPriceDP.ts 20",
+    "dp:all": "echo 'Running DP tests...' && npx ts-node bestPriceDP.ts 5 && npx ts-node bestPriceDP.ts 10 && npx ts-node bestPriceDP.ts 15 && npx ts-node bestPriceDP.ts 20",
+    "opt:15": "npx ts-node bestPriceDPOptimized.ts 15",
+    "opt:20": "npx ts-node bestPriceDPOptimized.ts 20",
+    "opt:25": "npx ts-node bestPriceDPOptimized.ts 25",
+    "benchmark": "npx ts-node benchmarkOptimized.ts",
+    "generate": "npx ts-node generateShops.ts > shops.json",
+    "dev": "npm run dp:15",
+    "prod:build": "npm run clean && npm run build && cp shops.json dist/",
+    "prod:run": "node dist/bestPriceDP.js 20"
   },
-  "keywords": [],
+  "keywords": [
+    "optimization",
+    "dynamic-programming",
+    "algorithm",
+    "shop",
+    "price"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
