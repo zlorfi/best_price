@@ -1,0 +1,6 @@
+.claude
+node_modules
+dist/*.ts
+dist/*.map
+dist/*.js
+shops.json
