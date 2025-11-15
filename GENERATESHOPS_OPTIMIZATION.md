@@ -9,11 +9,14 @@
 ## Problems Identified
 
 ### 1. **Item ID Range Too Small** ❌
+
 **Issue**: Used `randInt(100, 999)` which only provides 900 possible ID values
+
 - Problem: Needed 1,300 unique IDs but only 900 were possible in range
 - Result: Infinite while loop attempting to find duplicates that don't exist
 
 **Solution**: Expanded ID range to 100-1400 (1,301 possible values, enough buffer for 1,300 items)
+
 ```typescript
 // OLD (BROKEN)
 const id = randInt(100, 999);  // Only 900 possible values
@@ -24,14 +27,18 @@ const ID_RANGE_END = ID_RANGE_START + ITEM_POOL_SIZE + 100;  // 100-1400 = 1301 
 ```
 
 ### 2. **O(n²) Item Sampling** ❌
+
 **Issue**: `sampleUnique()` used `Array.splice()` for item selection
+
 - `splice()` is O(n) operation
 - Calling it n times = O(n²) total complexity
 - Problem: Used when selecting 50-150 items per shop × 26 shops
 
 **Solution**: Implemented **Fisher-Yates shuffle** algorithm
+
 - Time complexity: **O(n)** instead of O(n²)
 - In-place swapping instead of array manipulation
+
 ```typescript
 // OLD (O(n²))
 function sampleUnique<T>(array: T[], count: number): T[] {
@@ -58,12 +65,15 @@ function sampleUnique<T>(array: T[], count: number): T[] {
 ```
 
 ### 3. **O(n) Duplicate Detection** ❌
+
 **Issue**: Used `itemIds.includes()` for duplicate checking
+
 - `includes()` is O(n) for arrays
 - Called up to 1,300 times during generation
 - Problem: Total complexity O(n²) for ID generation phase
 
 **Solution**: Used **Set<number>** for O(1) lookup time
+
 ```typescript
 // OLD (O(n) lookup)
 if (!itemIds.includes(id)) {
@@ -84,15 +94,18 @@ if (!usedIds.has(id)) {
 ## Performance Improvements
 
 ### Before Optimization
+
 - **Execution Time**: Infinite loop (hangs indefinitely)
 - **Status**: ❌ BROKEN - Cannot generate with ITEM_POOL_SIZE=1300
 
 ### After Optimization
+
 - **Execution Time**: ~0.7 seconds
 - **Status**: ✅ WORKING - Fast and reliable
 
 ### Generated Data Quality
-```
+
+```bash
 Total shops:           26
 Unique items:          1,171 (target: 1,300)
 Total item-shop pairs: 2,901
@@ -102,6 +115,7 @@ Items per shop (avg):  111.6 (good distribution)
 ```
 
 > **Note**: 1,171 unique items instead of 1,300 is expected due to:
+>
 > - Random sampling from ID pool (not deterministic selection of all 1,300)
 > - Each shop independently selects random items from pool
 > - Some items naturally won't be selected (statistical occurrence)
@@ -126,16 +140,19 @@ Where: n=1300 items, m=26 shops, k=avg items/shop (111)
 ### File: generateShops.ts
 
 #### Change 1: Fisher-Yates Shuffle
+
 - **Lines**: 43-59
 - **Improvement**: O(n²) → O(n)
 - **Impact**: ~15-20% time savings
 
 #### Change 2: Item ID Range Expansion
+
 - **Lines**: 71-106
 - **Improvement**: Eliminates infinite loop
 - **Impact**: ~60-70% time savings
 
 #### Change 3: Set for Duplicate Detection
+
 - **Lines**: 75, 83-101
 - **Improvement**: O(n) → O(1) lookups
 - **Impact**: Minor, but prevents future scalability issues
@@ -145,6 +162,7 @@ Where: n=1300 items, m=26 shops, k=avg items/shop (111)
 ## Testing & Verification
 
 ### Test 1: Direct Execution
+
 ```bash
 $ time npx ts-node generateShops.ts > /tmp/test.json
 # Result: 0.709 seconds (total including TypeScript compilation)
@@ -152,6 +170,7 @@ $ time npx ts-node generateShops.ts > /tmp/test.json
 ```
 
 ### Test 2: NPM Script
+
 ```bash
 $ npm run generate
 # Result: Successfully generates shops.json
@@ -159,6 +178,7 @@ $ npm run generate
 ```
 
 ### Test 3: Integration with Algorithms
+
 ```bash
 $ npm run opt:20
 # Using generated data with optimized DP
@@ -170,6 +190,7 @@ $ npm run opt:20
 ## Current Configuration
 
 **generateShops.ts constants:**
+
 ```typescript
 const MIN_SHOP_COUNT = 26;              // Number of shops
 const MIN_ITEMS_PER_SHOP = 50;          // Min items per shop
@@ -218,21 +239,26 @@ The optimized version can handle **even larger datasets**:
 ## Recommendations
 
 ### ✅ Current Setup (Recommended)
+
 The current parameters are production-ready:
+
 - Fast generation (~0.7s)
 - Good data distribution
 - Suitable for testing algorithms
 
 ### 📈 If You Need More Data
+
 ```typescript
 // For larger datasets, adjust these constants:
 const ITEM_POOL_SIZE = 5000;           // 5x more items
 const ID_RANGE_END = 6000;             // Expand ID range
 const MIN_SHOP_COUNT = 50;             // More shops
 ```
+
 Still maintains sub-1s generation time.
 
 ### ⚡ For Performance-Critical Applications
+
 - Pre-generate data once, reuse it
 - Cache shops.json after first generation
 - Only regenerate when testing new configurations
@@ -255,11 +281,13 @@ Still maintains sub-1s generation time.
 ## Quick Start
 
 Generate optimized test data:
+
 ```bash
 npm run generate
 ```
 
 Test with algorithms:
+
 ```bash
 npm run opt:15    # Test with 15 items, instant
 npm run opt:20    # Test with 20 items, instant

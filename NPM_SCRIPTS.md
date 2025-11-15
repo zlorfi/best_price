@@ -15,6 +15,7 @@ npm run benchmark    # See performance comparison
 ## Build Scripts
 
 ### `npm run build`
+
 Compile TypeScript to JavaScript in `dist/` folder.
 
 ```bash
@@ -23,6 +24,7 @@ npm run build
 ```
 
 ### `npm run clean`
+
 Remove the compiled `dist/` folder.
 
 ```bash
@@ -31,6 +33,7 @@ npm run clean
 ```
 
 ### `npm run prod:build`
+
 Production build: clean, compile, and copy data file.
 
 ```bash
@@ -48,6 +51,7 @@ npm run prod:build
 ### Brute-Force Algorithm (O(4^n))
 
 #### `npm run bf:5`
+
 Run brute-force with 5 items (fast).
 
 ```bash
@@ -57,6 +61,7 @@ npm run bf:5
 ```
 
 #### `npm run bf:10`
+
 Run brute-force with 10 items (slowish).
 
 ```bash
@@ -66,6 +71,7 @@ npm run bf:10
 ```
 
 #### `npm run bf:all`
+
 Run brute-force with multiple sizes (5, 8, 10).
 
 ```bash
@@ -79,6 +85,7 @@ npm run bf:all
 ### Standard Dynamic Programming (O(n × 2^m))
 
 #### `npm run dp:5`
+
 Run standard DP with 5 items.
 
 ```bash
@@ -87,6 +94,7 @@ npm run dp:5
 ```
 
 #### `npm run dp:15`
+
 Run standard DP with 15 items (default dev command).
 
 ```bash
@@ -96,6 +104,7 @@ npm run dev  # Same as above
 ```
 
 #### `npm run dp:20`
+
 Run standard DP with 20 items.
 
 ```bash
@@ -105,6 +114,7 @@ npm run dp:20
 ```
 
 #### `npm run dp:all`
+
 Run standard DP with multiple sizes (5, 10, 15, 20).
 
 ```bash
@@ -117,6 +127,7 @@ npm run dp:all
 ### Optimized Dynamic Programming (With Branch-and-Bound Pruning)
 
 #### `npm run opt:15`
+
 Run optimized DP with 15 items (fastest for 15).
 
 ```bash
@@ -125,6 +136,7 @@ npm run opt:15
 ```
 
 #### `npm run opt:20`
+
 Run optimized DP with 20 items.
 
 ```bash
@@ -134,6 +146,7 @@ npm run opt:20
 ```
 
 #### `npm run opt:25`
+
 Run optimized DP with 25 items (pushing the limit).
 
 ```bash
@@ -147,6 +160,7 @@ npm run opt:25
 ## Utility Scripts
 
 ### `npm run benchmark`
+
 Compare all three algorithms side-by-side.
 
 ```bash
@@ -156,12 +170,14 @@ npm run benchmark
 ```
 
 Output shows:
+
 - Execution time for each
 - Speedup factor
 - Percentage of states pruned
 - Results verification (both optimal)
 
 ### `npm run generate`
+
 Generate new random test data.
 
 ```bash
@@ -176,6 +192,7 @@ npm run generate
 ## Production Scripts
 
 ### `npm run prod:build`
+
 Build for production deployment.
 
 ```bash
@@ -188,6 +205,7 @@ npm run prod:build
 ```
 
 ### `npm run prod:run`
+
 Run compiled production version with 20 items.
 
 ```bash
@@ -265,18 +283,21 @@ npm run benchmark
 ## Script Groups by Purpose
 
 ### For Learning
+
 ```bash
 npm run bf:5    # See how brute-force works
 npm run dp:5    # See how DP works
 ```
 
 ### For Performance Testing
+
 ```bash
 npm run benchmark    # Compare algorithms
 npm run opt:20      # See optimized performance
 ```
 
 ### For Full Test Suite
+
 ```bash
 npm run bf:all      # All brute-force tests
 npm run dp:all      # All DP tests
@@ -284,12 +305,14 @@ npm run benchmark   # Algorithm comparison
 ```
 
 ### For Developers
+
 ```bash
 npm run dev         # Quick development run (DP with 15 items)
 npm run build       # Compile changes
 ```
 
 ### For Production
+
 ```bash
 npm run prod:build  # Build for deployment
 npm run prod:run    # Test compiled version
@@ -360,6 +383,7 @@ npm run benchmark
 ## Troubleshooting
 
 ### Command not found
+
 ```bash
 # Make sure dependencies are installed
 npm install
@@ -369,6 +393,7 @@ npm run benchmark
 ```
 
 ### TypeScript errors
+
 ```bash
 # Make sure TypeScript is installed
 npm install --save-dev typescript ts-node
@@ -378,6 +403,7 @@ npm run clean && npm run build
 ```
 
 ### shops.json not found
+
 ```bash
 # Generate sample data
 npm run generate
@@ -387,6 +413,7 @@ npm run prod:build  # Does this automatically
 ```
 
 ### Permission denied (on macOS/Linux)
+
 ```bash
 # Make sure you're in the right directory
 cd /path/to/best_price
@@ -415,6 +442,7 @@ npm run benchmark
 ## Recommended Usage
 
 ### For First-Time Users
+
 ```bash
 npm install
 npm run dev              # See it in action
@@ -422,6 +450,7 @@ npm run benchmark       # Understand the improvements
 ```
 
 ### For Development
+
 ```bash
 npm run benchmark       # Before/after optimization comparison
 npm run opt:20         # Test your changes
@@ -429,6 +458,7 @@ npm run build          # Prepare for testing
 ```
 
 ### For Production Deployment
+
 ```bash
 npm run prod:build     # Full production build
 npm run prod:run       # Test before deploying
